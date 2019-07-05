@@ -1,9 +1,12 @@
 type Query{
     lstClientes:[Cliente]!
+    lstComida:[Comida]!
 }
 
 type Mutation{
     Registro(data:RegistroUsuario!): Cliente!
+	CrearComida(data:createComidaInput!):Comida!
+
 }
 
 input RegistroUsuario{
@@ -32,4 +35,20 @@ type Cliente{
     cCorreo: String!,
     cContrasenia: String!,
     lEstatus: String
+}
+
+type Comida{
+	_id:ID
+	cNombre:String!
+	cDescripcion:String!
+	cPrecio:String!
+	cUrlImagen:String
+	lEstatus:Boolean!
+}
+
+input createComidaInput {
+	cNombre:String!
+	cDescripcion:String!
+	cPrecio:String!
+	cUrlImagen:String
 }
