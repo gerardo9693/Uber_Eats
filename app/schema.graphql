@@ -1,0 +1,35 @@
+type Query{
+    lstClientes:[Cliente]!
+}
+
+type Mutation{
+    Registro(data:RegistroUsuario!): Cliente!
+}
+
+input RegistroUsuario{
+    cNombre: String!,
+    cApellidoP: String!,
+    cApellidoM: String!,
+    cTelefono: String!,
+    cCalle: String!,
+    cCruzamientoA: String!,
+    cCruzamientoB: String,
+    cGenero: String,
+    cCorreo: String!,
+    cContrasenia: String!
+}
+
+type Cliente{
+    _id:ID,
+    cNombre: String!,
+    cApellidoP: String!,
+    cApellidoM: String!,
+    cTelefono: String!,
+    cCalle: String!,
+    cCruzamientoA: String!,
+    cCruzamientoB: String,
+    cGenero: String,
+    cCorreo: String!,
+    cContrasenia: String!,
+    lEstatus: String
+}
