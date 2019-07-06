@@ -9,7 +9,6 @@ type Mutation{
 
     Registro(data:RegistroUsuario!): Cliente!,
     Login(cCorreo:String!, cContrasenia:String): Auth!
-    Registro(data:RegistroUsuario!): Cliente!
 	CrearComida(data:createComidaInput!):Comida!
 
 }
