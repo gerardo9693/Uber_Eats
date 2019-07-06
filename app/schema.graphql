@@ -1,9 +1,12 @@
+directive @auth on FIELD_DEFINITION | FIELD
+
 type Query{
     lstClientes:[Cliente]!
 }
 
 type Mutation{
-    Registro(data:RegistroUsuario!): Cliente!
+    Registro(data:RegistroUsuario!): Cliente!,
+    Login(cCorreo:String!, cContrasenia:String): Auth!
 }
 
 input RegistroUsuario{
@@ -17,6 +20,11 @@ input RegistroUsuario{
     cGenero: String,
     cCorreo: String!,
     cContrasenia: String!
+}
+
+type Auth {
+    token:String!,
+    message:String!
 }
 
 type Cliente{
