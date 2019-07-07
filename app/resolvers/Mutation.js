@@ -1,4 +1,5 @@
 const Cliente = require('../models/cliente');
+const authenticate = require('../utils/authenticate');
 const ComidaModel =  require('../models/Comida');
 
 
@@ -13,6 +14,16 @@ const Registro = async(root, params, context, info) => {
 }
 
 
+const Login = async(root,params,context,info) => {
+	const token = await authenticate(params).catch(e => {throw e;} );
+
+	return {
+		token,
+		message:'Ok'
+	};
+};
+
+
 const CrearComida =  async(root,params,context,info) => {
 
 	const NuevaComida =  await ComidaModel.create(params.data)
@@ -24,5 +35,6 @@ const CrearComida =  async(root,params,context,info) => {
 
 module.exports = {
     Registro,
-    CrearComida
+    CrearComida,
+    Login
 };
