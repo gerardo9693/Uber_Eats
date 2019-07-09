@@ -7,9 +7,11 @@ type Query{
 
 type Mutation{
 
-    Registro(data:RegistroUsuario!): Cliente!,
+    Registro(data:RegistroUsuario!): Cliente!
     Login(cCorreo:String!, cContrasenia:String): Auth!
-	CrearComida(data:createComidaInput!):Comida!
+	CrearComida(data:crearComidaInput!):Comida!
+    EliminarComida(id:ID):String!
+    ActualizarComida(data:ActualizarComidaInput!):Comida!
 
 }
 
@@ -29,6 +31,13 @@ input RegistroUsuario{
 type Auth {
     token:String!,
     message:String!
+}
+
+input ActualizarComidaInput {
+    _id:String!
+	cNombre:String!
+	cDescripcion:String!
+	cPrecio:String!
 }
 
 type Cliente{
@@ -55,7 +64,7 @@ type Comida{
 	lEstatus:Boolean!
 }
 
-input createComidaInput {
+input crearComidaInput {
 	cNombre:String!
 	cDescripcion:String!
 	cPrecio:String!
