@@ -19,4 +19,13 @@ const server = new GraphQLServer({
     resolvers
 });
 
-server.start(() => console.log('Servidor corriendo'));
+const options={
+    cors:{
+        origin:"*"
+    }
+}
+
+
+server.start(options,() => console.log('Servidor corriendo'));
+
+module.exports={options};
