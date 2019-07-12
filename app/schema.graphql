@@ -1,9 +1,14 @@
+
 type Query{
     lstClientes:[Cliente]!
+    listRestaurante:[Restaurante]!
 }
 
 type Mutation{
     Registro(data:RegistroUsuario!): Cliente!
+    crearRestaurante(data:crearRestauranteInput!):Restaurante!
+    actualizarRestaurante(data:actualizarRestauranteInput!):Restaurante! 
+    EliminarRestaurante(id:ID):String!
 }
 
 input RegistroUsuario{
@@ -19,6 +24,17 @@ input RegistroUsuario{
     cContrasenia: String!
 }
 
+input crearRestauranteInput{
+	Nombre: String!
+	Descripcion: String!
+}
+
+input actualizarRestauranteInput{
+    _id:String!
+	Nombre: String
+	Descripcion: String
+}
+
 type Cliente{
     _id:ID,
     cNombre: String!,
@@ -32,4 +48,11 @@ type Cliente{
     cCorreo: String!,
     cContrasenia: String!,
     lEstatus: String
+}
+
+type Restaurante{
+	_id:ID
+	Nombre: String!
+	Descripcion:String!
+	is_active:Boolean!
 }
