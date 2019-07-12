@@ -44,6 +44,10 @@ const Cliente = new Schema({
         type: String, 
         required: true
     },
+    cRutaImagen : {
+        type: String,
+        default: 'https://res.cloudinary.com/dwzdurabf/image/upload/v1562593865/personal_f20vvn.png'
+    },
     lEstatus : {
         type: Boolean,
         default: true

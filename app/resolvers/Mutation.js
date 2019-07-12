@@ -1,18 +1,23 @@
-const Cliente = require('../models/cliente');
+const ClienteModel = require('../models/cliente');
 const authenticate = require('../utils/authenticate');
 const ComidaModel =  require('../models/Comida');
-
+const storage = require('../utils/storage');
 
 const Registro = async(root, params, context, info) => {
-    const registroUsuario = await Cliente.create(params.data)
-    .catch( e => {
-        throw new Error(e.message);
-    });
-    if(!registroUsuario) throw new Error('No se registro correctamente');
+	if(params.data.cRutaImagen){
+		const { createReadStream } = await params.data.cRutaImagen;
 
-    return registroUsuario.toObject();
-}
+		const stream = createReadStream();
 
+		const { url } = await storage({stream});
+			
+		params.data.cRutaImagen = url;
+	}
+	const registroUsuario = await ClienteModel.create(params.data)
+		.catch(e => {throw new Error('Error al registrar usuario');});
+
+	return registroUsuario.toObject();
+};
 
 const Login = async(root,params,context,info) => {
 	const token = await authenticate(params).catch(e => {throw e;} );
@@ -23,6 +28,17 @@ const Login = async(root,params,context,info) => {
 	};
 };
 
+const ActualizarPerfil = async(root, params, context, info) => {
+	const {data} = params;
+	const {user} = context;
+	console.log(user);
+	let Cliente = await ClienteModel.findById(user.id);
+	
+	if(!Cliente) throw new Error('El cliente no existe');
+	Object.keys(data).map( key => Cliente[key] = data[key])
+	const ClienteActualizado = await Cliente.save({new:true})
+	return ClienteActualizado.toObject();
+};
 
 const CrearComida =  async(root,params,context,info) => {
 
@@ -35,6 +51,7 @@ const CrearComida =  async(root,params,context,info) => {
 
 module.exports = {
     Registro,
+    ActualizarPerfil,
     CrearComida,
     Login
 };

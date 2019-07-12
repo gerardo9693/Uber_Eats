@@ -1,7 +1,8 @@
+scalar Upload
 directive @auth on FIELD_DEFINITION | FIELD
 
 type Query{
-    lstClientes:[Cliente]!
+    ListarClientes:[Cliente]!
     lstComida:[Comida]!
 }
 
@@ -9,8 +10,8 @@ type Mutation{
 
     Registro(data:RegistroUsuario!): Cliente!,
     Login(cCorreo:String!, cContrasenia:String): Auth!
-	CrearComida(data:createComidaInput!):Comida!
-
+	CrearComida(data:createComidaInput!): Comida!
+    ActualizarPerfil(data:ActualizarUsuario!): Cliente @auth
 }
 
 input RegistroUsuario{
@@ -23,7 +24,21 @@ input RegistroUsuario{
     cCruzamientoB: String,
     cGenero: String,
     cCorreo: String!,
-    cContrasenia: String!
+    cContrasenia: String!,
+    cRutaImagen: Upload
+}
+
+input ActualizarUsuario {
+    cNombre: String,
+    cApellidoP: String,
+    cApellidoM: String,
+    cTelefono: String,
+    cCalle: String,
+    cCruzamientoA: String,
+    cCruzamientoB: String,
+    cGenero: String,
+    cCorreo: String,
+    cContrasenia: String
 }
 
 type Auth {
@@ -40,6 +55,7 @@ type Cliente{
     cCalle: String!,
     cCruzamientoA: String!,
     cCruzamientoB: String,
+    cRutaImagen: String,
     cGenero: String,
     cCorreo: String!,
     cContrasenia: String!,

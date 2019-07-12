@@ -2,7 +2,7 @@ const ClienteModel = require('../models/cliente');
 const ComidaModel =  require('../models/Comida');
 
 
-const lstClientes  = async(root, params, context, info) => {
+const ListarClientes  = async(root, params, context, info) => {
 	const Clientes = await ClienteModel.find({});
 
 	return Clientes;
@@ -16,6 +16,6 @@ const lstComida =  async(root,params,context,info) => {
 
 
 module.exports = {
-	lstClientes,
+	ListarClientes,
 	lstComida
 }
