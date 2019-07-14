@@ -48,10 +48,37 @@ const CrearComida =  async(root,params,context,info) => {
 	return NuevaComida.toObject();
 }
 
+const ActualizarComida = async(root,params,context,info) => {
+	const {data} = params
+	const {user} =  context
+	console.log(data._id)
+	
+	// let Comida = await ComidaModel.findById(data._id)
+	// if(!Comida) throw new Error(" Autor No Existe")
+	const actualizarcomida = await ComidaModel.findOneAndUpdate({_id:data._id},{$set:{...data}},{new:true});
+
+        if (!actualizarcomida) {
+          throw new Error('Error')
+		}
+		
+        return actualizarcomida.toObject();
+}
+
+const EliminarComida = async(root,params,context,info) => {
+
+	const {id} = params;
+
+	await ComidaModel.findOneAndUpdate({_id:id},{$set:{lEstatus:false}})
+
+	return "Comida eliminado"
+
+}
 
 module.exports = {
     Registro,
     ActualizarPerfil,
     CrearComida,
-    Login
+    Login,
+	ActualizarComida,
+	EliminarComida
 };
