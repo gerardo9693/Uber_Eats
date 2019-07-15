@@ -4,7 +4,9 @@ const {importSchema} = require('graphql-import');
 const mongoose = require('mongoose');
 const resolvers = require('./resolvers');
 const typeDefs = importSchema('./app/schema.graphql');
+
 mongoose.connect(process.env.MONGO_URI,{ useNewUrlParser: true });
+mongoose.set('useFindAndModify', false);
 
 const mongo =  mongoose.connection;
 
@@ -17,4 +19,13 @@ const server = new GraphQLServer({
     resolvers
 });
 
-server.start(() => console.log('Servidor corriendo'));
+const options={
+    cors:{
+        origin:"*"
+    }
+}
+
+
+server.start(options,() => console.log('Servidor corriendo'));
+
+module.exports={options};

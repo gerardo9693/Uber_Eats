@@ -5,6 +5,7 @@ type Query{
 }
 
 type Mutation{
+
     Registro(data:RegistroUsuario!): Cliente!
     crearRestaurante(data:crearRestauranteInput!):Restaurante!
     actualizarRestaurante(data:actualizarRestauranteInput!):Restaurante! 
