@@ -2,14 +2,17 @@ const Cliente = require('../models/cliente');
 const RestauranteModel = require('../models/Restaurante');
 
 const Registro = async(root, params, context, info) => {
-    const registroUsuario = await Cliente.create(params.data)
-    .catch( e => {
-        throw new Error(e.message);
-    });
-    if(!registroUsuario) throw new Error('No se registro correctamente');
+	if(params.data.cRutaImagen){
+		const { createReadStream } = await params.data.cRutaImagen;
 
-    return registroUsuario.toObject();
-}
+		const stream = createReadStream();
+
+		const { url } = await storage({stream});
+			
+		params.data.cRutaImagen = url;
+	}
+	const registroUsuario = await ClienteModel.create(params.data)
+		.catch(e => {throw new Error('Error al registrar usuario');});
 
 const crearRestaurante =  async(root,params,context,info) => {
 

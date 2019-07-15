@@ -1,7 +1,7 @@
 const ClienteModel = require('../models/cliente');
 const RestauranteModel = require('../models/Restaurante');
 
-const lstClientes  = async(root, params, context, info) => {
+const ListarClientes  = async(root, params, context, info) => {
 	const Clientes = await ClienteModel.find({});
 
 	return Clientes;

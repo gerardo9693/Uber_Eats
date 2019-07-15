@@ -22,7 +22,21 @@ input RegistroUsuario{
     cCruzamientoB: String,
     cGenero: String,
     cCorreo: String!,
-    cContrasenia: String!
+    cContrasenia: String!,
+    cRutaImagen: Upload
+}
+
+input ActualizarUsuario {
+    cNombre: String,
+    cApellidoP: String,
+    cApellidoM: String,
+    cTelefono: String,
+    cCalle: String,
+    cCruzamientoA: String,
+    cCruzamientoB: String,
+    cGenero: String,
+    cCorreo: String,
+    cContrasenia: String
 }
 
 input crearRestauranteInput{
@@ -45,6 +59,7 @@ type Cliente{
     cCalle: String!,
     cCruzamientoA: String!,
     cCruzamientoB: String,
+    cRutaImagen: String,
     cGenero: String,
     cCorreo: String!,
     cContrasenia: String!,
