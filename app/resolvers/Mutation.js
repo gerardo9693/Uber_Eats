@@ -1,6 +1,7 @@
 const ClienteModel = require('../models/cliente');
 const authenticate = require('../utils/authenticate');
 const ComidaModel =  require('../models/Comida');
+const DireccionModel = require('../models/Direccion');
 const storage = require('../utils/storage');
 
 const Registro = async(root, params, context, info) => {
@@ -17,6 +18,22 @@ const Registro = async(root, params, context, info) => {
 		.catch(e => {throw new Error('Error al registrar usuario');});
 
 	return registroUsuario.toObject();
+};
+
+const crearDireccion = async(root, params, context, info) => {
+	const {user} = context;
+	params.data.Cliente = user;
+
+	const Direccion = await DireccionModel.create(params.data)
+		.catch(e => {throw new Error('Error al registrar dirección');});
+
+	console.log(Direccion);
+
+	const nuevaDireccion = await DireccionModel.findOne({_id:Direccion._id}).populate('Cliente');
+
+	await ClienteModel.findByIdAndUpdate(user.id, {$push:{Direcciones:Direccion}});
+
+	return nuevaDireccion;
 };
 
 const Login = async(root,params,context,info) => {
@@ -75,7 +92,8 @@ const EliminarComida = async(root,params,context,info) => {
 }
 
 module.exports = {
-    Registro,
+	Registro,
+	crearDireccion,
     ActualizarPerfil,
     CrearComida,
     Login,

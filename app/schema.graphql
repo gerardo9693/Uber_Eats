@@ -3,14 +3,15 @@ directive @auth on FIELD_DEFINITION | FIELD
 
 type Query{
     ListarClientes:[Cliente]!
+    ListarDirecciones: [Direccion]!
     lstComida:[Comida]!
 }
 
 type Mutation{
 
     Registro(data:RegistroUsuario!): Cliente!
+    crearDireccion(data:registrarDireccion!):Direccion!
     Login(cCorreo:String!, cContrasenia:String): Auth!
-	CrearComida(data:createComidaInput!): Comida!
     ActualizarPerfil(data:ActualizarUsuario!): Cliente @auth
 	CrearComida(data:crearComidaInput!):Comida!
     EliminarComida(id:ID):String!
@@ -22,9 +23,6 @@ input RegistroUsuario{
     cApellidoP: String!,
     cApellidoM: String!,
     cTelefono: String!,
-    cCalle: String!,
-    cCruzamientoA: String!,
-    cCruzamientoB: String,
     cGenero: String,
     cCorreo: String!,
     cContrasenia: String!,
@@ -49,6 +47,33 @@ type Auth {
     message:String!
 }
 
+type Direccion {
+    _id: ID, 
+    Cliente: Cliente!,
+    cCalle: String!,
+    cCruzamientoA: String!,
+    cCruzamientoB: String,
+    longitud: String!,
+    latitud: String!
+}
+
+input registrarDireccion {
+    cCalle: String!,
+    cCruzamientoA: String!,
+    cCruzamientoB: String,
+    longitud: String!,
+    latitud: String!
+}
+
+input actualizarDireccion {
+    _id: String!,
+    cCalle: String!,
+    cCruzamientoA: String!,
+    cCruzamientoB: String,
+    longitud: String!,
+    latitud: String!
+}
+
 input ActualizarComidaInput {
     _id:String!
 	cNombre:String!
@@ -62,9 +87,7 @@ type Cliente{
     cApellidoP: String!,
     cApellidoM: String!,
     cTelefono: String!,
-    cCalle: String!,
-    cCruzamientoA: String!,
-    cCruzamientoB: String,
+    Direcciones: [Direccion],
     cRutaImagen: String,
     cGenero: String,
     cCorreo: String!,

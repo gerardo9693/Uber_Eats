@@ -20,16 +20,9 @@ const Cliente = new Schema({
         required: true,
         unique: true
     },
-    cCalle : {
-        type: String,
-        required: true
-    },
-    cCruzamientoA : {
-        type: String,
-        required: true
-    },
-    cCruzamientoB : {
-        type: String,
+    Direcciones:{
+        type: [Schema.Types.ObjectId],
+        ref: 'Direcciones'
     },
     cGenero : {
         type: String,
