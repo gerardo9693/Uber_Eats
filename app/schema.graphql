@@ -1,10 +1,10 @@
-scalar Upload
-directive @auth on FIELD_DEFINITION | FIELD
 
 type Query{
     ListarClientes:[Cliente]!
     ListarDirecciones: [Direccion]!
     lstComida:[Comida]!
+    lstClientes:[Cliente]!
+    listRestaurante:[Restaurante]!
 }
 
 type Mutation{
@@ -16,6 +16,9 @@ type Mutation{
 	CrearComida(data:crearComidaInput!):Comida!
     EliminarComida(id:ID):String!
     ActualizarComida(data:ActualizarComidaInput!):Comida!
+    crearRestaurante(data:crearRestauranteInput!):Restaurante!
+    actualizarRestaurante(data:actualizarRestauranteInput!):Restaurante! 
+    EliminarRestaurante(id:ID):String!
 }
 
 input RegistroUsuario{
@@ -42,9 +45,9 @@ input ActualizarUsuario {
     cContrasenia: String
 }
 
-type Auth {
-    token:String!,
-    message:String!
+input crearRestauranteInput{
+	Nombre: String!
+	Descripcion: String!
 }
 
 type Direccion {
@@ -75,10 +78,10 @@ input actualizarDireccion {
 }
 
 input ActualizarComidaInput {
+input actualizarRestauranteInput{
     _id:String!
-	cNombre:String!
-	cDescripcion:String!
-	cPrecio:String!
+	Nombre: String
+	Descripcion: String
 }
 
 type Cliente{
@@ -95,18 +98,9 @@ type Cliente{
     lEstatus: String
 }
 
-type Comida{
+type Restaurante{
 	_id:ID
-	cNombre:String!
-	cDescripcion:String!
-	cPrecio:String!
-	cUrlImagen:String
-	lEstatus:Boolean!
-}
-
-input crearComidaInput {
-	cNombre:String!
-	cDescripcion:String!
-	cPrecio:String!
-	cUrlImagen:String
+	Nombre: String!
+	Descripcion:String!
+	is_active:Boolean!
 }

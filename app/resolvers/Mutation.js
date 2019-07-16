@@ -3,6 +3,8 @@ const authenticate = require('../utils/authenticate');
 const ComidaModel =  require('../models/Comida');
 const DireccionModel = require('../models/Direccion');
 const storage = require('../utils/storage');
+const Cliente = require('../models/cliente');
+const RestauranteModel = require('../models/Restaurante');
 
 const Registro = async(root, params, context, info) => {
 	if(params.data.cRutaImagen){
@@ -60,36 +62,35 @@ const ActualizarPerfil = async(root, params, context, info) => {
 const CrearComida =  async(root,params,context,info) => {
 
 	const NuevaComida =  await ComidaModel.create(params.data)
+const crearRestaurante =  async(root,params,context,info) => {
+
+	const newRestaurante =  await RestauranteModel.create(params.data)
 							.catch( e => {throw new Error("Ocurrio un problema") } )
-	if(!NuevaComida) throw new Error("No se creo la 'Comida'");
-	return NuevaComida.toObject();
+	if(!newRestaurante) throw new Error("No se creo el 'restaurante'");
+	return newRestaurante.toObject();
 }
 
-const ActualizarComida = async(root,params,context,info) => {
+const actualizarRestaurante = async(root,params,context,info) => {
+
 	const {data} = params
-	const {user} =  context
-	console.log(data._id)
-	
-	// let Comida = await ComidaModel.findById(data._id)
-	// if(!Comida) throw new Error(" Autor No Existe")
-	const actualizarcomida = await ComidaModel.findOneAndUpdate({_id:data._id},{$set:{...data}},{new:true});
 
-        if (!actualizarcomida) {
-          throw new Error('Error')
-		}
-		
-        return actualizarcomida.toObject();
+	const ActualizaRestaurante = await RestauranteModel.findOneAndUpdate({_id:data._id},{$set:{...data}},{new:true});
+
+    if(!ActualizaRestaurante) throw new Error(" Restaurante No Existe")
+   
+	return ActualizaRestaurante.toObject();
 }
 
-const EliminarComida = async(root,params,context,info) => {
+
+const EliminarRestaurante = async(root,params,context,info) => {
 
 	const {id} = params;
 
-	await ComidaModel.findOneAndUpdate({_id:id},{$set:{lEstatus:false}})
+	await RestauranteModel.findOneAndUpdate({_id:id},{$set:{is_active:false}})
 
-	return "Comida eliminado"
+	return "Restaurante eliminado"
 
-}
+}   
 
 module.exports = {
 	Registro,
@@ -98,5 +99,8 @@ module.exports = {
     CrearComida,
     Login,
 	ActualizarComida,
-	EliminarComida
+	EliminarComida,
+    crearRestaurante,
+	actualizarRestaurante,
+	EliminarRestaurante
 };
