@@ -1,3 +1,5 @@
+scalar Upload
+directive @auth on FIELD_DEFINITION | FIELD
 
 type Query{
     ListarClientes:[Cliente]!
@@ -21,6 +23,11 @@ type Mutation{
     EliminarRestaurante(id:ID):String!
 }
 
+type Auth {
+    token:String!,
+    message:String!
+}
+
 input RegistroUsuario{
     cNombre: String!,
     cApellidoP: String!,
@@ -30,6 +37,13 @@ input RegistroUsuario{
     cCorreo: String!,
     cContrasenia: String!,
     cRutaImagen: Upload
+}
+
+input crearComidaInput {
+	cNombre:String!
+	cDescripcion:String!
+	cPrecio:String!
+	cUrlImagen:String
 }
 
 input ActualizarUsuario {
@@ -78,6 +92,21 @@ input actualizarDireccion {
 }
 
 input ActualizarComidaInput {
+    _id:String!
+	cNombre:String!
+	cDescripcion:String!
+	cPrecio:String!
+}
+
+type Comida{
+	_id:ID
+	cNombre:String!
+	cDescripcion:String!
+	cPrecio:String!
+	cUrlImagen:String
+	lEstatus:Boolean!
+}
+
 input actualizarRestauranteInput{
     _id:String!
 	Nombre: String

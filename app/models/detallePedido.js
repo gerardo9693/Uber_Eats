@@ -13,6 +13,10 @@ const detallePedido = new Schema({
     Cantidad: {
         type: Int,
         required: true
+    },
+    Subtotal: {
+        type: Float,
+        required: true
     }
 }, {collection:"Detalles",timestamps:true});
 

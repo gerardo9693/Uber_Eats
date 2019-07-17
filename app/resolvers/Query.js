@@ -19,12 +19,15 @@ const ListarDirecciones = async(root, params, context, info) => {
 const lstComida =  async(root,params,context,info) => {
 	const Comidas = await ComidaModel.find({});
 	return Comidas
+
+}
+
 const listRestaurante = async(root, params,context,info) => {
 	
 	const Restaurante = await RestauranteModel.find({});
 	
 	return Restaurante
-}
+};
 
 
 
@@ -32,7 +35,7 @@ const listRestaurante = async(root, params,context,info) => {
 module.exports = {
 	ListarClientes,
 	lstComida,
-	ListarDirecciones
-	lstClientes,
+	ListarDirecciones,
+	ListarClientes,
 	listRestaurante
-}
+};
