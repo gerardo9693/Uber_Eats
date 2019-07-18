@@ -7,6 +7,7 @@ type Query{
     lstComida:[Comida]!
     lstClientes:[Cliente]!
     listRestaurante:[Restaurante]!
+    singleComida(id:ID!):Comida!
 }
 
 type Mutation{

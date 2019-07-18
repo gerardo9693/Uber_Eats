@@ -29,7 +29,14 @@ const listRestaurante = async(root, params,context,info) => {
 	return Restaurante
 };
 
+const singleComida = async(root,params, context, info) => {
 
+	const Comida = await ComidaModel.findById(params.id).populate('Restaurante');
+	if(!Comida) throw new Error("Comida no existe")
+
+	return Comida.toObject();
+
+}
 
 
 module.exports = {
@@ -37,5 +44,6 @@ module.exports = {
 	lstComida,
 	ListarDirecciones,
 	ListarClientes,
-	listRestaurante
+	listRestaurante,
+	singleComida
 };
