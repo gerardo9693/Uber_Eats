@@ -9,6 +9,7 @@ type Query{
     listRestaurante:[Restaurante]!
     ListarPedido:[Pedido]!
     ListarDetalles(id:ID!):[DetallePedido]!
+    singleComida(id:ID!):Comida!
 }
 
 type Mutation{
