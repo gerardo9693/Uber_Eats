@@ -8,12 +8,13 @@ Date.prototype.addDays = function(days){
 	return date;
 };
 
-const createToken = ({_id,cCorreo}) => {
+const createToken = ({_id,cCorreo, cNombre}) => {
 	const exp = new Date().addDays(1).getTime();
 
 	const payload = {
 		_id, 
 		cCorreo,
+		cNombre,
 		exp
 	}
 

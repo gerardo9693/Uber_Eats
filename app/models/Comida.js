@@ -19,7 +19,8 @@ const ComidaSchema = new Schema({
 		required:true,
 	},
 	cUrlImagen:{
-		type:String
+		type:String,
+		default: "https://res.cloudinary.com/dwzdurabf/image/upload/v1563498010/comida_psxwrk.jpg"
 	},
 	lEstatus:{
 		type:Boolean,
