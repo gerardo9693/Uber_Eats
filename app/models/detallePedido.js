@@ -11,11 +11,11 @@ const detallePedido = new Schema({
         ref: 'Comidas'
     },
     Cantidad: {
-        type: Int,
+        type: Number,
         required: true
     },
     Subtotal: {
-        type: Float,
+        type: Number,
         required: true
     }
 }, {collection:"Detalles",timestamps:true});

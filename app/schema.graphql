@@ -7,6 +7,8 @@ type Query{
     lstComida:[Comida]!
     lstClientes:[Cliente]!
     listRestaurante:[Restaurante]!
+    ListarPedido:[Pedido]!
+    ListarDetalles(id:ID!):[DetallePedido]!
 }
 
 type Mutation{
@@ -20,12 +22,29 @@ type Mutation{
     ActualizarComida(data:ActualizarComidaInput!):Comida!
     crearRestaurante(data:crearRestauranteInput!):Restaurante!
     actualizarRestaurante(data:actualizarRestauranteInput!):Restaurante! 
-    EliminarRestaurante(id:ID):String!
+    EliminarRestaurante(id:ID):String!,
+    RegistrarPedido(data:CrearPedido!):Pedido!,
+    RegistrarDetalle(data:CrearDetalle!): DetallePedido!
 }
 
 type Auth {
     token:String!,
     message:String!
+}
+
+type Pedido {
+    _id: ID,
+    cliente: Cliente!,
+    direccionEntrega: ID!,
+    total: Float!
+}
+
+type DetallePedido {
+    _id: ID,
+    Pedido: Pedido!,
+    Comida: Comida!,
+    Cantidad: Int,
+    Subtotal: Float
 }
 
 input RegistroUsuario{
@@ -89,6 +108,17 @@ input actualizarDireccion {
     cCruzamientoB: String,
     longitud: String!,
     latitud: String!
+}
+
+input CrearDetalle {
+    Pedido: ID!,
+    Comida: ID!,
+    Cantidad: Int!,
+    Subtotal: Float!
+}
+
+input CrearPedido {
+    direccionEntrega: String
 }
 
 input ActualizarComidaInput {

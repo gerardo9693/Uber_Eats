@@ -11,7 +11,7 @@ const Pedido = new Schema({
         ref: 'Direcciones'
     },
     total: {
-        type: Float,
+        type: Number,
         required: true
     }
 }, {collection:"Pedidos",timestamps:true});

@@ -4,6 +4,8 @@ const ComidaModel =  require('../models/Comida');
 const DireccionModel = require('../models/Direccion');
 const storage = require('../utils/storage');
 const RestauranteModel = require('../models/Restaurante');
+const PedidoModel = require('../models/Pedido');
+const DetallePedido = require('../models/detallePedido');
 
 const Registro = async(root, params, context, info) => {
 	if(params.data.cRutaImagen){
@@ -122,6 +124,29 @@ const EliminarRestaurante = async(root,params,context,info) => {
 
 }   
 
+const RegistrarPedido =  async(root,params,context,info) => {
+	const {user} = context;
+	console.log(user);
+	params.data.cliente = user;
+	params.data.total = 0;
+
+	const Pedido =  await PedidoModel.create(params.data)
+							.catch( e => {throw new Error("Ocurrio un problema") } )
+	if(!Pedido) throw new Error("No se creo el 'pedido'");
+	console.log(Pedido);
+	return Pedido.toObject();
+}
+
+const RegistrarDetalle = async(root,params,context,info) => {
+	const detalles =  await DetallePedido.create(params.data)
+							.catch( e => {throw new Error("Ocurrio un problema") } )
+
+	console.log(detalles);
+	if(!detalles) throw new Error("No se creo los detalles");
+	
+	return detalles.toObject();
+}
+
 module.exports = {
 	Registro,
 	crearDireccion,
@@ -132,5 +157,7 @@ module.exports = {
 	EliminarComida,
     crearRestaurante,
 	actualizarRestaurante,
-	EliminarRestaurante
+	EliminarRestaurante,
+	RegistrarPedido,
+	RegistrarDetalle
 }
