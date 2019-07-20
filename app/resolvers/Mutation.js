@@ -71,6 +71,19 @@ const ActualizarPerfil = async(root, params, context, info) => {
 };
 
 const CrearComida =  async(root,params,context,info) => {
+	console.log(params.data.cUrlImagen);
+
+	if(params.data.cUrlImagen){
+		const { createReadStream } = await params.data.cUrlImagen;
+
+		const stream = createReadStream();
+
+		const { url } = await storage({stream});
+			
+		params.data.cUrlImagen = url;
+	} 
+	
+	console.log(params);
 
 	const NuevaComida =  await ComidaModel.create(params.data)
 							.catch( e => {throw new Error("Ocurrio un problema") } )

@@ -11,6 +11,7 @@ type Query{
     ListarDetalles(id:ID!):[DetallePedido]!
     singleComida(id:ID!):Comida!
     singleDireccion(id:ID!):[Direccion]!
+    Cliente(id:ID!):Cliente!,
 }
 
 type Mutation{
@@ -64,7 +65,7 @@ input crearComidaInput {
 	cNombre:String!
 	cDescripcion:String!
 	cPrecio:String!
-	cUrlImagen:String
+	cUrlImagen:Upload
 }
 
 input ActualizarUsuario {

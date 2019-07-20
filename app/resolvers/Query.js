@@ -11,6 +11,13 @@ const ListarClientes  = async(root, params, context, info) => {
 	return Clientes;
 };
 
+const Cliente = async(root, params, context, info) => {
+	const _Cliente = await ClienteModel.findById(params.id);
+	if(!_Cliente) throw new Error('El autor no existe');
+
+	return _Cliente.toObject();
+};
+
 const ListarDetalles  = async(root, params, context, info) => {
 	console.log(params);
 	const detalles = await Detalles.find({Pedido:params.id});
@@ -71,5 +78,6 @@ module.exports = {
 	ListarPedido,
 	ListarDetalles,
 	singleComida,
-	singleDireccion
+	singleDireccion,
+	Cliente
 };
