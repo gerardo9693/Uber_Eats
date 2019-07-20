@@ -51,6 +51,15 @@ const singleComida = async(root,params, context, info) => {
 	return Comida.toObject();
 
 }
+const singleDireccion = async(root,params, context, info) => {
+console.log(context);
+	
+	console.log(params);
+	const Direccion = await DireccionModel.find({Cliente:params.id});
+
+	return Direccion;
+
+}
 
 
 module.exports = {
@@ -61,5 +70,6 @@ module.exports = {
 	listRestaurante,
 	ListarPedido,
 	ListarDetalles,
-	singleComida
+	singleComida,
+	singleDireccion
 };
